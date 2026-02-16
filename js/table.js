@@ -1,6 +1,6 @@
 const button = document.querySelector("#myTable + button");
 const tb = document.querySelector("#myTable tbody");
-const data = [1,2,3,"pippo"];
+const data = [1,2,3];
 
 const student = {
     name:"pippo",
@@ -61,6 +61,60 @@ console.log(employees[0][x]);
 console.log(employees[0]["na" + "me"]);
 
 button.addEventListener("click", (evt) => {
+
+    employees.forEach(employee => {
+
+    const tr = document.createElement("tr");
+
+    const tdId = document.createElement("td");
+    tdId.textContent = employee.id;
+
+    const tdName = document.createElement("td");
+    tdId.textContent = employee.name;
+
+    const tdLastName = document.createElement("td");
+    tdId.textContent = employee.lastname;
+
+    const tdRole = document.createElement("td");
+    tdId.textContent = employee.role;
+
+    tr.appendChild(tdId);
+    tr.appendChild(tdName);
+    tr.appendChild(tdLastName);
+    tr.appendChild(tdRole);
+
+    tr.appendChild(tr); 
+});
+
+button.disabled = true;
+});
+
+//altro modo, più compatto
+/*
+button.addEventListener("click", function () {
+    data.forEach(function(id){
+
+        //trova l'impiegato con quell'id
+        const employee = employees.find(emp => emp.id === id);
+
+        //crea la riga
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+        <td>${employee.id}</td>
+        <td>${employee.name}</td>
+        <td>${employee.lastname}</td>
+        <td>${employee.role}</td>
+        `;
+        tb.appendChild(tr);
+    });
+
+    //disabilita il bottone
+    button.disabled = true;
+});
+*/
+/*
+button.addEventListener("click", (evt) => {
     const tr = document.createElement("tr");
 
     const tdId = document.createElement("td");
@@ -77,4 +131,4 @@ button.addEventListener("click", (evt) => {
     tr.appendChild(tdLastName);
 
     tb.appendChild(tr);
-});
+});*/
