@@ -1,6 +1,8 @@
 const table = document.querySelector("#myTable");
 const tBody = document.querySelector("#myTable tbody");
 const button = document.querySelector("#myTable + button");
+const emptyRow = document.querySelector("#myTable tbody td");
+
 const employees = [{
     id: 1,
     name: "Lorenzo",
