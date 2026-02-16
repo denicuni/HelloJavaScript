@@ -19,7 +19,7 @@ button.addEventListener("click", (event) => {
 //}
 
 function palle() {
-	console.log("palle");
+	console.log('<div></div>');
 }
 
 function pasta() {
@@ -27,7 +27,6 @@ function pasta() {
 }
 
 function termostato() {
-	console.log("porcoddio si muore di caldo")
 }
 
 let lista = []
@@ -43,3 +42,12 @@ for (let i = 0; i < lista.length; i++) {
 for (fun of lista) {
 	fun()
 }
+
+// language=html
+const template = `
+  <div>
+    <h1>Test</h1>
+
+
+  </div>
+`

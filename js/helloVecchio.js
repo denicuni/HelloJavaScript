@@ -6,8 +6,7 @@ b = "ciao";
 console.log(typeof (b));
 
 function example() {
-    return
-    4;
+	return
 }
 
 b = document.getElementById("myButton"); // da accesso a id "myButton"
@@ -18,7 +17,7 @@ console.log(title);
 console.log(window.title);
 
 /*b.onclick = function (evt) {
-    alert("Hello, World! da funzione");
+	alert("Hello, World! da funzione");
 }*/
 
 // b.onclick = (evt) => alert("Hello, World! da funzione");
@@ -26,26 +25,42 @@ console.log(window.title);
 // b.onclick = (evt) => alert("Ho settato un secondo listener");
 
 b.addEventListener("click", (evt) => {
-    title.textContent = "Questo testo è stato settato da javaScript";
+	title.textContent = "Questo testo è stato settato da javaScript";
 
-    title.style.color = "orange";
-    title.style.fontSize = "50px";
+	title.style.color = "orange";
+	title.style.fontSize = "50px";
 
-    let input = document.querySelector("#newInput");
-    console.log(input.value);
+	let input = document.querySelector("#newInput");
+	console.log(input.value);
 
-    let list = document.querySelector("#myList");
-    const li = document.createElement("li");
+	let list = document.querySelector("#myList");
+	const li = document.createElement("li");
 
-    li.textContent = "Nuovo elemento";
-    list.appendChild(li);
+	li.textContent = "Nuovo elemento";
+	list.appendChild(li);
 
-    console.log(evt.target.id);
+	console.log(evt.target.id);
 
 	document.querySelector("button")
 
 	alert("Hello, World! da primo event listener");
-
 });
 
 // b.addEventListener("click", (evt) => alert("Hello, World! from second event listener"));
+
+
+class quadrato {
+	constructor(lunghezza, altezza) {
+		this.lunghezza = lunghezza;
+		this.altezza = altezza;
+	}
+
+	getAltezza() {
+		return 5;
+	}
+}
+
+let quadrato1 = new quadrato(8, 10);
+
+console.log(quadrato1.variabileACaso)
+
