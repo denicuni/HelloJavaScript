@@ -75,6 +75,7 @@ button.addEventListener("click", (evt) => {
     tr.appendChild(tdId);
     tr.appendChild(tdName);
     tr.appendChild(tdLastName);
+    
     tb.appendChild(tr);
 });
 button.addEventListener("click" , (evt)=>{
@@ -97,6 +98,7 @@ button.addEventListener("click" , (evt)=>{
         tr.appendChild(tdName);
         tr.appendChild(tdLastName);
         tr.appendChild(tdRole);
+       
         tb.appendChild(tr);
     })
     button.disabled= true ;
