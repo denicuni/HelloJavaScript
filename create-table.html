@@ -5,6 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Creazione tabella</title>
+    <style>
+/* Stile base per tutta la tabella */
+table {
+    width: 60%;           /* larghezza della tabella */
+    border-collapse: collapse; /* unisce i bordi */
+    margin: 20px auto;    /* centra la tabella */
+    font-family: Arial, sans-serif;
+}
+
+/* Intestazione */
+thead {
+    background-color: #4CAF50; /* verde */
+    color: white;
+}
+
+/* Celle (intestazione e corpo) */
+th, td {
+    border: 1px solid #333;  /* bordo scuro */
+    padding: 8px;
+    text-align: center;
+}
+
+/* Riga al passaggio del mouse */
+tbody tr:hover {
+    background-color: #f2f2f2;
+}
+</style>
+
 </head>
 
 <body>
@@ -18,7 +46,8 @@
         </thead>
         <tbody></tbody>
     </table>
-    <button>Fill Table</button>
+     <button>Aggiungi Impiegato</button>
+    <!-- <button>Fill Table</button> -->
     <script src="js/table.js"></script>
 </body>
 
