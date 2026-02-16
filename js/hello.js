@@ -7,8 +7,10 @@ console.log(typeof (b));
 
 function example() {
     return
-    4;
+     4;
 }
+
+console.log(example());
 
 b = document.getElementById("myButton"); // da accesso a id "myButton"
 console.log(b);
