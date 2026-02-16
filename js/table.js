@@ -71,10 +71,33 @@ button.addEventListener("click", (evt) => {
 
     const tdLastName = document.createElement("td");
     tdLastName.textContent = "Rossi";
-
+    
     tr.appendChild(tdId);
     tr.appendChild(tdName);
     tr.appendChild(tdLastName);
-
     tb.appendChild(tr);
+});
+button.addEventListener("click" , (evt)=>{
+    employees.forEach(e=>{
+        const tr= document.createElement("tr");
+        
+        const tdId = document.createElement("td");
+        tdId.textContent= e.id;
+
+        const tdName= document.createElement("td");
+        tdName.textContent = e.name;
+
+        const tdLastName= document.createElement("td");
+        tdLastName.textContent=e.lastname;
+
+        const tdRole= document.createElement("td");
+        tdRole.textContent= e.role;
+
+        tr.appendChild(tdId);
+        tr.appendChild(tdName);
+        tr.appendChild(tdLastName);
+        tr.appendChild(tdRole);
+        tb.appendChild(tr);
+    })
+    button.disabled= true ;
 });
