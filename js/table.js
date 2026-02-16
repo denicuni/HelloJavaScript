@@ -1,48 +1,48 @@
 const button = document.querySelector("#myTable + button");
 const tb = document.querySelector("#myTable tbody");
-const data = [1,2,3,"pippo"];
+const data = [1, 2, 3, "pippo"];
 
 const student = {
-    name:"pippo",
-    lastname:"de pippis",
-    age:30,
-    sayHello: function(){
+    name: "pippo",
+    lastname: "de pippis",
+    age: 30,
+    sayHello: function () {
         console.log(this.name + " " + this.lastname);
     }
 };
 student.sayHello();
 
 const employees = [{
-    id:1,
-    name:"lorenzo",
-    lastname:"violanti",
-    role:"senior developer"
-},{
-    id:2,
-    name:"mattia",
-    lastname:"formiconi",
-    role:"ceo"
-},{
-    id:3,
-    name:"francesco",
-    lastname:"de vecchi",
-    role:"il boss supremo"
+    id: 1,
+    name: "lorenzo",
+    lastname: "violanti",
+    role: "senior developer"
+}, {
+    id: 2,
+    name: "mattia",
+    lastname: "formiconi",
+    role: "ceo"
+}, {
+    id: 3,
+    name: "francesco",
+    lastname: "de vecchi",
+    role: "il boss supremo"
 }];
 //for classico
-for(let i = 0; i < employees.length; i++){
+for (let i = 0; i < employees.length; i++) {
     console.log(employees[i].name);
 }
 //foreach
-for(let e of employees){
+for (let e of employees) {
     console.log(e.lastname);
 }
 //for in (ciclare sulle proprietà dell'oggetto)
-for(let e in employees[0]){
+for (let e in employees[0]) {
     console.log(employees[0][e]);
 }
 
 console.log("Dimostrazione del metodo forEach");
-employees.forEach(function(e){
+employees.forEach(function (e) {
     console.log(e.role);
 });
 
@@ -61,20 +61,38 @@ console.log(employees[0][x]);
 console.log(employees[0]["na" + "me"]);
 
 button.addEventListener("click", (evt) => {
-    const tr = document.createElement("tr");
+    for (let i = 0; i < employees.length; i++) {
+        const tr = document.createElement("tr");
 
-    const tdId = document.createElement("td");
-    tdId.textContent = "1";
+        for (let key in employees[i]) {
+            const td = document.createElement("td");
+            td.textContent = String(employees[i][key]);
+            tr.appendChild(td);
+        }
 
-    const tdName = document.createElement("td");
-    tdName.textContent = "Mario";
+        tb.appendChild(tr);
 
-    const tdLastName = document.createElement("td");
-    tdLastName.textContent = "Rossi";
-
-    tr.appendChild(tdId);
-    tr.appendChild(tdName);
-    tr.appendChild(tdLastName);
-
+    }
     tb.appendChild(tr);
+
+    // const tr = document.createElement("tr");
+
+    // const tdId = document.createElement("td");
+    // tdId.textContent = employees[0].id;
+
+    // const tdName = document.createElement("td");
+    // tdName.textContent = employees[0].name;
+
+    // const tdLastName = document.createElement("td");
+    // tdLastName.textContent = employees[0].lastname;
+
+    // const tdrole = document.createElement("td");
+    // tdrole.textContent = employees[0].role;
+
+    // tr.appendChild(tdId);
+    // tr.appendChild(tdName);
+    // tr.appendChild(tdLastName);
+    // tr.appendChild(tdrole)
+
+    // tb.appendChild(tr);
 });
