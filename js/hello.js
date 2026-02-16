@@ -1,4 +1,23 @@
-let button = document.querySelector("button")
+let b = null;
+console.log(typeof (b));
+b = 3;
+console.log(typeof (b));
+b = "ciao";
+console.log(typeof (b));
+
+function example() {
+    return
+     4;
+}
+
+console.log(example());
+
+b = document.getElementById("myButton"); // da accesso a id "myButton"
+console.log(b);
+
+let title = document.getElementById("title");
+console.log(title);
+console.log(window.title);
 
 button.addEventListener("click", (event) => {
 	alert("cliccato")
