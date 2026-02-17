@@ -1,5 +1,6 @@
 [{
     "id":1,
+<<<<<<< HEAD
     "name":"lorenzo",
     "lastname":"violanti",
     "role":"senior developer"
@@ -14,3 +15,19 @@
     "lastname":"de vecchi",
     "role":"il boss supremo"
 }]
+=======
+    "name":"Lorenzo",
+    "lastname":"Violanti",
+    "role":"Senior Developer"
+},{
+    "id":2,
+    "name":"Mattia",
+    "lastname":"Formiconi",
+    "role":"CEO"
+},{
+    "id":3,
+    "name":"Francesco",
+    "lastname":"De Vecchi",
+    "role":"Il Boss Supremo"
+}]
+>>>>>>> origin/main

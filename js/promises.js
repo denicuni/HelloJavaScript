@@ -2,9 +2,15 @@ const myPromise = new Promise((resolve,reject) => {
     setTimeout(() => {
         const successful = true;
         if(successful){
+<<<<<<< HEAD
             resolve("Operzione conclusa con successo");
         } else {
             reject("Operazione fallita.");
+=======
+            resolve("Operazione conclusa con successo");
+        }else{
+            reject("Operazione fallita");
+>>>>>>> origin/main
         }
     }, 3000);
 });
@@ -19,15 +25,23 @@ myPromise
 
 const target = document.querySelector("#myDiv p:nth-of-type(2)");
 
+<<<<<<< HEAD
 // const promise = fetch("data.json");
 // promise
 //     .then(response => response.json())
 //     .then(empArray => console.log(empArray[0].name));
+=======
+//const promise = fetch("data.json");
+//promise
+//    .then(response => response.json())
+//    .then(empArray => console.log(empArray[0].name));
+>>>>>>> origin/main
 
 fetch("data.json")
     .then(response => response.json())
     .then(empArray => console.log(empArray[0].name))
     .catch(error => console.log(error));
+<<<<<<< HEAD
 
     /*
         sto creando un nuovo oggetto di tipo Promise. 
@@ -44,3 +58,5 @@ fetch("data.json")
         input lo riceverà la then della promessa. La result in riga 13 sarà la stringa alla riga 5.
         Se invece success è false, si andrà nel catch.
     */
+=======
+>>>>>>> origin/main

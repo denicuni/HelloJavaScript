@@ -1,0 +1,38 @@
+#myTable {
+    border-collapse: collapse;
+    border: 2px solid #000000;
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+#myTable th{
+    background-color: rgb(194, 207, 218);
+}
+
+#myTable th, 
+#myTable td {
+    border: 1px solid #000000;
+    padding: 10px 12px;
+    text-align: center;
+    vertical-align: center;
+}
+
+#myTable + button {
+    background-color: bisque;
+    padding: 7px 10px;
+    border-radius: 5px;
+    border-color: rgb(247, 175, 88);
+    margin-top: 20px;
+    margin-left: 30px;
+    cursor: pointer;
+}
+
+#myTable + button:hover {
+    background-color: rgb(248, 201, 143);
+}
+
+.empty-cell {
+    text-align: center;
+    color: rgb(61, 65, 68);
+    font-style: italic;
+}
