@@ -28,15 +28,15 @@ const employees = [{
     lastname:"de vecchi",
     role:"il boss supremo"
 }];
-//for classico
+console.log("CLASSICO");
 for(let i = 0; i < employees.length; i++){
     console.log(employees[i].name);
 }
-//foreach
+console.log("FOREACH");
 for(let e of employees){
     console.log(e.lastname);
 }
-//for in (ciclare sulle proprietà dell'oggetto)
+console.log("FOR IN");
 for(let e in employees[0]){
     console.log(employees[0][e]);
 }
@@ -60,7 +60,7 @@ x = "role";
 console.log(employees[0][x]);
 console.log(employees[0]["na" + "me"]);
 
-button.addEventListener("click", (evt) => {
+/* button.addEventListener("click", (evt) => {
     const tr = document.createElement("tr");
 
     const tdId = document.createElement("td");
@@ -77,4 +77,67 @@ button.addEventListener("click", (evt) => {
     tr.appendChild(tdLastName);
 
     tb.appendChild(tr);
+}); */
+
+var index = 0;
+button.addEventListener("click", (evt) => {
+    appendEmployeeToTable(employees[index], tb);
+    index++;
+    if (index >= employees.length){
+        button.disabled = true;
+    };
 });
+
+const fuckinButton = document.querySelector("#fuckinButton");
+
+fuckinButton.addEventListener("click", (evt) => {
+    /*
+    for (i in employees){
+        appendEmployeeToTable(employees[i], tb);
+    }
+    fuckinButton.disabled = true; 
+    */
+    
+    var table = document.querySelector("#myTable");
+    appendMatchingToTable(employees[0], table)
+    
+})
+
+function appendEmployeeToTable(e, tableBody){
+    const tr = document.createElement("tr");
+
+    // volevo prendere dalla table i dati dell head e metterli in un array
+    const tdId = document.createElement("td");
+    tdId.textContent = e.id;
+
+    const tdName = document.createElement("td");
+    tdName.textContent = e.name;
+
+    const tdLastName = document.createElement("td");
+    tdLastName.textContent = e.lastname;
+
+    const tdRole = document.createElement("td");
+    tdRole.textContent = e.role;
+
+    tr.appendChild(tdId);
+    tr.appendChild(tdName);
+    tr.appendChild(tdLastName);
+    tr.appendChild(tdRole);
+
+    tableBody.appendChild(tr);
+};
+
+function appendMatchingToTable(element, table){
+    const thead = table.thead;
+    const tbody = table.tBodies[0];
+
+    var tr = document.createElement("tr");
+    for(e in element){
+        var td = document.createElement("td");
+        td.textContent = element[e];
+        tr.append(td);
+    }
+
+    tbody.appendChild(tr);
+}
+
