@@ -10,7 +10,8 @@ button.addEventListener("click", () => {
                 const http2 = new XMLHttpRequest();
                 http2.onreadystatechange = function() {
                     if (this.readyState == 4 && this.status == 200) {
-                        makeRow(JSON.parse(this.responseText));
+                        const filmObject = JSON.parse(this.responseText);
+                        makeRow(filmObject);
                     }
                 }
                 http2.open("GET", film, true);
