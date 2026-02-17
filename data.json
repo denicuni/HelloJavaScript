@@ -1,20 +1,16 @@
- [
-  {
-    "id": 1,
-    "name": "lorenzo",
-    "lastname": "violanti",
-    "role": "senior developer"
-  },
-  {
-    "id": 2,
-    "name": "mattia",
-    "lastname": "formiconi",
-    "role": "ceo"
-  },
-  {
-    "id": 3,
-    "name": "francesco",
-    "lastname": "de vecchi",
-    "role": "il boss supremo"
-  }
-]
+[{
+    "id":1,
+    "name":"Lorenzo",
+    "lastname":"Violanti",
+    "role":"Senior Developer"
+},{
+    "id":2,
+    "name":"Mattia",
+    "lastname":"Formiconi",
+    "role":"CEO"
+},{
+    "id":3,
+    "name":"Francesco",
+    "lastname":"De Vecchi",
+    "role":"Il Boss Supremo"
+}]
