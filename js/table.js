@@ -61,20 +61,14 @@ console.log(employees[0][x]);
 console.log(employees[0]["na" + "me"]);
 
 button.addEventListener("click", (evt) => {
-    const tr = document.createElement("tr");
-
-    const tdId = document.createElement("td");
-    tdId.textContent = "1";
-
-    const tdName = document.createElement("td");
-    tdName.textContent = "Mario";
-
-    const tdLastName = document.createElement("td");
-    tdLastName.textContent = "Rossi";
-
-    tr.appendChild(tdId);
-    tr.appendChild(tdName);
-    tr.appendChild(tdLastName);
-
-    tb.appendChild(tr);
+    for(let e of employees){
+        const tr = document.createElement("tr");
+        for(let key in e){
+            const td = document.createElement("td");
+            td.textContent = e[key]
+            tr.appendChild(td)
+        }
+        tb.appendChild(tr)
+        button.disabled = true
+    }
 });
