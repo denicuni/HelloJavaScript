@@ -28,19 +28,6 @@ const employees = [{
     lastname: "De Vecchi",
     role: "Il Boss Supremo"
 }];
-<<<<<<< HEAD
-console.log("CLASSICO");
-for(let i = 0; i < employees.length; i++){
-    console.log(employees[i].name);
-}
-console.log("FOREACH");
-for(let e of employees){
-    console.log(e.lastname);
-}
-console.log("FOR IN");
-for(let e in employees[0]){
-    console.log(employees[0][e]);
-=======
 //for classico
 for (let i = 0; i < employees.length; i++) {
     console.log(employees[i].name);
@@ -52,7 +39,6 @@ for (let e of employees) {
 //for in (ciclare sulle proprietà dell'oggetto)
 for (let e in employees[0]) {
     console.log(e);
->>>>>>> 2d34e22245a93f8c7a06d5c9c0e18dac086e07e3
 }
 
 console.log("Dimostrazione del metodo forEach");
@@ -74,16 +60,11 @@ x = "role";
 console.log(employees[0][x]);
 console.log(employees[0]["na" + "me"]);
 
-<<<<<<< HEAD
-/* button.addEventListener("click", (evt) => {
-    const tr = document.createElement("tr");
-=======
 button.addEventListener("click", (evt) => {
     fetch("data.json")
         .then(response => response.json())
         .then(empArray => loadData(empArray));
 });
->>>>>>> 2d34e22245a93f8c7a06d5c9c0e18dac086e07e3
 
 function loadData(remoteEmployees) {
     if (tb.children.length === 0) {
@@ -99,73 +80,6 @@ function loadData(remoteEmployees) {
             const tdLastName = document.createElement("td");
             tdLastName.textContent = e.lastname;
 
-<<<<<<< HEAD
-    tb.appendChild(tr);
-}); */
-
-var index = 0;
-button.addEventListener("click", (evt) => {
-    appendEmployeeToTable(employees[index], tb);
-    index++;
-    if (index >= employees.length){
-        button.disabled = true;
-    };
-});
-
-const fuckinButton = document.querySelector("#fuckinButton");
-
-fuckinButton.addEventListener("click", (evt) => {
-    /*
-    for (i in employees){
-        appendEmployeeToTable(employees[i], tb);
-    }
-    fuckinButton.disabled = true; 
-    */
-    
-    var table = document.querySelector("#myTable");
-    appendMatchingToTable(employees[0], table)
-    
-})
-
-function appendEmployeeToTable(e, tableBody){
-    const tr = document.createElement("tr");
-
-    // volevo prendere dalla table i dati dell head e metterli in un array
-    const tdId = document.createElement("td");
-    tdId.textContent = e.id;
-
-    const tdName = document.createElement("td");
-    tdName.textContent = e.name;
-
-    const tdLastName = document.createElement("td");
-    tdLastName.textContent = e.lastname;
-
-    const tdRole = document.createElement("td");
-    tdRole.textContent = e.role;
-
-    tr.appendChild(tdId);
-    tr.appendChild(tdName);
-    tr.appendChild(tdLastName);
-    tr.appendChild(tdRole);
-
-    tableBody.appendChild(tr);
-};
-
-function appendMatchingToTable(element, table){
-    const thead = table.thead;
-    const tbody = table.tBodies[0];
-
-    var tr = document.createElement("tr");
-    for(e in element){
-        var td = document.createElement("td");
-        td.textContent = element[e];
-        tr.append(td);
-    }
-
-    tbody.appendChild(tr);
-}
-
-=======
             const tdRole = document.createElement("td");
             tdRole.textContent = e.role;
 
@@ -179,4 +93,3 @@ function appendMatchingToTable(element, table){
         button.disabled = true;
     }
 }
->>>>>>> 2d34e22245a93f8c7a06d5c9c0e18dac086e07e3
