@@ -31,3 +31,8 @@ Developer.prototype.work = function(){
         console.log(this.name + " Sa solo programmare come lavoro");
     };
 d1.work();
+
+const o1 = {};
+console.log("Analisi modelli JS");
+console.log(o1.__proto__ == Object.prototype);  //.prototype e una proprieta di object, non il suo porototipo
+console.log(Object.prototype == Object.__proto__);
