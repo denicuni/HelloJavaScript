@@ -29,3 +29,20 @@
             # se il giocatore ha ancora soldi può continuare a puntare
             # generation promuove il gambling
 */
+const input = document.querySelector( ".soldi-puntati" );
+const button = document.querySelector( "#punta" );
+/*Costanti già presenti in html*/
+
+const bet = 0;
+const playerMoney = 1000;
+/*Costanti per lavorare qui su css*/
+button.disabled = true;
+input.addEventListener( "input", ( evt ) => {
+    button.disabled = input.value;
+    const value = input.value;
+    if ( value >= 10 && value <= playerMoney ) {
+        bet = value;
+    }else {
+        button.disabled = true;
+    };
+} );/*Setta il bottone a disabilitato inizialmente, poi lo abilita solo quando viene inserito un valore all'interno di input*/
