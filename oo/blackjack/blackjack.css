@@ -26,9 +26,9 @@ input{
     display: flex;
     margin-left: 40% ;
     gap: 250px;
-    background-color: rgb(199, 93, 17);
+    background-color: rgba(199, 93, 17, 0.5);
     width: fit-content;
-    color: antiquewhite;
+    color: #166338;
     margin-bottom: 20%;
 }
 #Opponent{
@@ -44,4 +44,8 @@ input{
     background-color: rgb(199, 93, 17);
     width: fit-content;
     color: antiquewhite;
+}
+.card{
+    width: fit-content;
+    height: fit-content;
 }
