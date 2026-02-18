@@ -1,7 +1,10 @@
 console.log("Start");
 setTimeout(() => console.log("Scattato il time out"), 3000);
 console.log("End");
-
+//come fare, e stiamo dicendo che impiegherà del tempo
+//il return avviene subito, prima che i dati siano pronti 
+//(restituirebbe undefined o null). 
+//La callback invece viene chiamata solo quando i dati sono effettivamente disponibili.
 function getData(callBack){
     let result = null;
     setTimeout(() => {
@@ -16,8 +19,7 @@ function showData(response){
     console.log(response);
 }
 
-//let data = getData(showData);
-//showData(data);
+//le fa
 getData(showData);
 
 const button = document.querySelector("#response + button");
