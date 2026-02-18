@@ -1,6 +1,6 @@
-<<<<<<< HEAD
+
 console.log("Hello Node World");
-=======
+
 console.log("Hello Node World");
 const employee = {
     name : "Pippo",
@@ -34,4 +34,3 @@ Developer.prototype.work = function(){
         console.log(this.name + " Sa solo programmare come lavoro");
     };
 d1.work();
->>>>>>> main

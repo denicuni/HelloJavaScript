@@ -1,9 +1,7 @@
 const table = document.querySelector("#myTable");
 const tBody = document.querySelector("#myTable tbody");
 const button = document.querySelector("#myTable + button");
-<<<<<<< HEAD
 const emptyRow = document.querySelector("#myTable tbody td");
-=======
 const tb = document.querySelector("#myTable tbody");
 const data = [1,2,3,"pippo"];
 
@@ -16,7 +14,6 @@ const student = {
     }
 };
 student.sayHello();
->>>>>>> eric.andreotti
 
 const employees = [{
     id: 1,
@@ -36,7 +33,6 @@ const employees = [{
 }]
 
 button.addEventListener("click", (evt) => {
-<<<<<<< HEAD
     for (let e of employees) {
         const tr = document.createElement("tr");
         const idTd = document.createElement("td");
@@ -55,7 +51,6 @@ button.addEventListener("click", (evt) => {
     }
     button.disabled = true;
 });
-=======
 
     employees.forEach(employee => {
 
@@ -82,7 +77,7 @@ button.addEventListener("click", (evt) => {
 });
 
 button.disabled = true;
-});
+
 
 //altro modo, più compatto
 /*
@@ -139,4 +134,3 @@ function loadData(remoteEmployees) {
 
     tb.appendChild(tr);
 });*/
->>>>>>> eric.andreotti
