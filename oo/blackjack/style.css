@@ -1,11 +1,54 @@
 .table {
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
-	width: 100vw;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;   
 }
-
-.space {
-	background-color: blue;
-	height: calc(100%/3);
+.master{
+  background-color: rgb(4, 0, 255);
+   height: 30%;
+  }
+.space{
+  background-color: blueviolet;
+   height: 30%; 
+  display: flex; /*Gestisce i figli e rendere la dimensione del genitore per contenere i figli*/
+}
+.player{
+  background-color: brown; 
+  height: 30%;
+  display: flex;
+}
+.carte-mazziere{
+  background-color: rgb(227, 157, 51);
+  height: 100%;
+  width: 30%;
+  margin:0 auto;
+  display: flex;
+  justify-content: center; /*Allinea le robe rispetto alla direzione del flex*/
+  align-items: center;/*Allinea in base alla perpendicolare, da quello che ricorda Lorenzo*/
+}
+.empty-space{
+  background-color: rgb(63, 169, 147);
+  width: 30%;
+  
+}
+.alert-fake{
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#start{
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gestione-soldi{
+  background-color: rgb(181, 97, 115);
+  height: 60%;
+  width: 30%;
+  margin-top: 16%;
+  display: flex;
+  align-items: center;
 }
