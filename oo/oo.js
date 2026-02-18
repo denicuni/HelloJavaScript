@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-console.log("Hello World");
-=======
 console.log("Hello Node World");
 const employee = {
     name : "Pippo",
@@ -71,4 +68,3 @@ console.log(a1.__proto__.constructor.prototype == a1.__proto__);
 console.log(a1.constructor);
 console.log(Architect.__proto__);
 console.log(Object.__proto__);
->>>>>>> main
