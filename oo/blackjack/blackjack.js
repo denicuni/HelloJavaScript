@@ -29,20 +29,48 @@
             # se il giocatore ha ancora soldi può continuare a puntare
             # generation promuove il gambling
 */
-const input = document.querySelector( ".soldi-puntati" );
-const button = document.querySelector( "#punta" );
+const input = document.querySelector(".soldi-puntati");
+const button = document.querySelector("#punta");
+const start = document.querySelector("#start");
+const playerDeck = document.querySelector(".mazzo-player")
 /*Costanti già presenti in html*/
 
 const bet = 0;
 const playerMoney = 1000;
 /*Costanti per lavorare qui su css*/
 button.disabled = true;
-input.addEventListener( "input", ( evt ) => {
-    button.disabled = input.value;
+input.addEventListener("input", (evt) => {
+    button.disabled = !input.value;
     const value = input.value;
-    if ( value >= 10 && value <= playerMoney ) {
+    if (value >= 10 && value <= playerMoney) {
         bet = value;
-    }else {
+
+    } else {
         button.disabled = true;
     };
-} );/*Setta il bottone a disabilitato inizialmente, poi lo abilita solo quando viene inserito un valore all'interno di input*/
+});/*Setta il bottone a disabilitato inizialmente, poi lo abilita solo quando viene inserito un valore all'interno di input*/
+let deckId;
+async function APInewdeck() {
+    let x = await fetch("https://deckofcardsapi.com/api/deck/new");
+    let data = await x.json();
+    deckId= data.deck_id;
+    console.log(data);
+}
+APInewdeck();
+start.addEventListener("click", (_)=>{
+    async function drawFromDeck(){
+        let y = await fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/`);
+        let card = await y.json();
+        console.log(card);
+        let z = document.createElement("img");
+        z.src = card.cards[0].images.png;
+        z.classList.add("card");
+        playerDeck.appendChild(z);
+    }
+    drawFromDeck();
+
+   
+});
+
+
+
