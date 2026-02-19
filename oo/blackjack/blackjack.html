@@ -1,5 +1,33 @@
-[...] 
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Blackjack JS</title>
+</head>
+<body>
 
-<div style
+<h1>Blackjack</h1>
 
-[...]
+<p>Saldo: <span id="money">1000</span> €</p>
+
+<input type="number" id="bet" placeholder="Puntata (min 10€)" min="10">
+<button id="start">Start</button>
+
+<hr>
+
+<h2>Giocatore</h2>
+<div id="player-cards"></div>
+<p>Punteggio: <span id="player-score">0</span></p>
+
+<h2>Banco</h2>
+<div id="dealer-cards"></div>
+<p>Punteggio: <span id="dealer-score">?</span></p>
+
+<button id="hit" disabled>Hit</button>
+<button id="stay" disabled>Stay</button>
+
+<p id="message"></p>
+
+<script src="blackjack.js"></script>
+</body>
+</html>

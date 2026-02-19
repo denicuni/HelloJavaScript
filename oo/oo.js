@@ -34,8 +34,6 @@ Developer.prototype.work = function(){
         console.log(this.name + " Sa solo programmare come lavoro");
     };
 d1.work();
-<<<<<<< HEAD
-=======
 
 // const o1 = new Object();
 const o1 = {};
@@ -73,4 +71,3 @@ console.log(a1.__proto__.constructor.prototype == a1.__proto__);
 console.log(a1.constructor);
 console.log(Architect.__proto__);
 console.log(Object.__proto__);
->>>>>>> main
