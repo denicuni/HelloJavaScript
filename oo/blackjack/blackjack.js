@@ -29,3 +29,98 @@
             # se il giocatore ha ancora soldi può continuare a puntare
             # generation promuove il gambling
 */
+let isGameStarted = false;
+const input = document.querySelector(".soldi-puntati");
+const button = document.querySelector("#punta");
+const start = document.querySelector("#start");
+const playerDeck = document.querySelector(".mazzo-player");
+const opponentDeck = document.querySelector(".carte-mazziere");
+const hitButton = document.querySelector("#hit");
+hitButton.disabled = true;
+playerDeck.listOfCards = [];
+opponentDeck.listOfCards = [];
+/*Costanti già presenti in html*/
+
+let bet = 0;
+const playerMoney = 1000;
+/*Costanti per lavorare qui su css*/
+button.disabled = true;
+input.addEventListener("input", (evt) => {
+    button.disabled = !input.value;
+    const value = input.value;
+    if (value >= 10 && value <= playerMoney) {
+        bet = value;
+
+    } else {
+        button.disabled = true;
+    }
+    ;
+});/*Setta il bottone a disabilitato inizialmente, poi lo abilita solo quando viene inserito un valore all'interno di input*/
+let deckId;
+(async (url) => {
+    let x = await fetch(url);
+    let data = await x.json();
+    deckId = data.deck_id;
+    console.log(data);
+    await fetch(`https://deckofcardsapi.com/api/deck/${deckId}/shuffle/`);
+})("https://deckofcardsapi.com/api/deck/new");
+
+async function drawFromDeck(parentTag, isFlipped = false) {
+    let y = await fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/`);
+    let card = await y.json();
+    console.log(card);
+    let z;
+    if (!isFlipped) {
+        z = document.createElement("img");
+        z.src = card.cards[0].images.png;
+        z.classList.add("card");
+    } else {
+        z = document.createElement("img");
+        z.src = "https://deckofcardsapi.com/static/img/back.png";
+        z.classList.add("card");
+        z.classList.add("flipped");
+    }
+    switch (card.cards[0].value){
+        case "ACE":
+            parentTag.listOfCards.push(1);
+            break;
+        case "QUEEN":
+        case "KING":
+        case "JACK":
+            parentTag.listOfCards.push(10);
+            break;
+        default:
+            parentTag.listOfCards.push(Number(card.cards[0].value));
+    }
+    parentTag.appendChild(z);
+}
+
+start.addEventListener("click", async (_) => {
+    isGameStarted = true;
+    playerDeck.replaceChildren();
+    opponentDeck.replaceChildren();
+    hitButton.disabled = !isGameStarted;
+    start.disabled = isGameStarted;
+    await drawFromDeck(opponentDeck, true);
+    await drawFromDeck(playerDeck);
+    await drawFromDeck(opponentDeck);
+    console.log(opponentDeck.listOfCards, playerDeck.listOfCards);
+});
+
+hitButton.addEventListener("click", async () => {
+    await drawFromDeck(playerDeck);
+    let somma = 0;
+    for(let value of playerDeck.listOfCards){
+        somma+=value;
+    }
+    if (somma>21){
+        alert("hai perso");
+        isGameStarted = false;
+        hitButton.disabled = !isGameStarted;
+        start.disabled = isGameStarted;
+    }
+
+    console.log(playerDeck.listOfCards);
+})
+
+

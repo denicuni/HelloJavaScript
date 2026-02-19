@@ -1,0 +1,51 @@
+.cardSlot {
+    
+}
+body>h2{
+    background-color: rgb(184, 223, 196);
+    width:fit-content;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: x-large;
+    margin-bottom: 40px;
+}
+button{
+    
+    background-color:whitesmoke;
+    border-width: 4px;
+    border-color: brown;
+
+}
+input{
+    border-width: 4px;
+    border-color: brown;
+    background-color: whitesmoke;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.banco{
+    display: flex;
+    margin-left: 40% ;
+    gap: 250px;
+    background-color: rgba(199, 93, 17, 0.5);
+    width: fit-content;
+    color: #166338;
+    margin-bottom: 20%;
+}
+#Opponent{
+    margin-left: 47%;
+}
+#portafoglio{
+    font-size: 35px;
+}
+.player{
+    display: flex;
+    margin-left: 40% ;
+    gap: 250px;
+    background-color: rgb(199, 93, 17);
+    width: fit-content;
+    color: antiquewhite;
+}
+.card{
+    width: fit-content;
+    height: fit-content;
+}

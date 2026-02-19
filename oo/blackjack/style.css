@@ -1,3 +1,140 @@
-.cardSlot {
-    
+* {
+	box-sizing:border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	--punta-height: 4rem
+}
+
+.table {
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	width: 100vw;
+	padding: 0;
+	margin: 0;
+}
+
+.master {
+	background-color: rgb(4, 0, 255);
+	height: 30%;
+}
+
+.space {
+	background-color: blueviolet;
+	height: 30%;
+	display: flex;
+	/*Gestisce i figli e rendere la dimensione del genitore per contenere i figli*/
+}
+
+.player {
+	background-color: brown;
+	height: 30%;
+	display: flex;
+}
+
+.carte-mazziere {
+	background-color: rgb(227, 157, 51);
+	height: 100%;
+	width: 30%;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	/*Allinea le robe rispetto alla direzione del flex*/
+	align-items: center;
+	/*Allinea in base alla perpendicolare, da quello che ricorda Lorenzo*/
+	overflow-x: scroll;
+}
+
+.empty-space {
+	background-color: rgb(63, 169, 147);
+	flex: 0 0 30%;
+
+}
+
+.start-container {
+	background-color: rgb(63, 169, 200);
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	padding: 30px;
+}
+
+#start{
+	height: 3rem;
+	width: 10rem;
+	border-radius: 1rem;
+	border: none;
+}
+
+.alert-fake {
+	flex: 0 0 40%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.gestione-soldi {
+	background-color: rgb(181, 97, 115);
+	width: 30%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+	padding: 2rem 1rem;
+
+}
+
+#punta {
+	height: 4rem;
+}
+
+.mazzo-player {
+	background-color: rgb(227, 157, 51);
+	height: 100%;
+	width: 40%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow-x: scroll;
+}
+
+.tasti {
+	background-color: rgb(63, 169, 147);
+	width: 30%;
+	display: flex;
+	align-items: flex-end;
+	padding: 2rem 1rem;
+	gap: 20px;
+}
+
+.play-button {
+	height: 6rem;
+	width: 6rem;
+	border-radius: 50%;
+	border: none;
+}
+
+#punta {
+	border-radius: 1rem;
+	height: var(--punta-height);
+}
+
+.soldi-totali {
+	height: calc(var(--punta-height) / 2);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.soldi-puntati {
+	height: calc(var(--punta-height) / 2);
+}
+
+.card{
+	--larghezza-carta: 12rem;
+	height:calc(var(--larghezza-carta)*1.4);
+	widht:var(--larghezza-carta);
 }
