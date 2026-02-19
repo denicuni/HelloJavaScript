@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tavolo</title>
+    <link rel="stylesheet" href="blackjackGame.css">
+</head>
+
+<body>
+
+    <main class="mainContainer">
+        <header>
+            <h1>PARTITA</h1>
+            <div class="stats">
+                <div class="info">Saldo: <span id="balance">1000€</span></div>
+                <div class="bet">
+                    <input type="number" min=10 step="1" id="betInput" placeholder="Inserisci la tua puntata">
+                    <button id="betButton"><strong>PUNTA</strong></button>
+                    <div class="info">Mazzo: <span id="deckCount">-</span></div>
+                </div>
+        </header>
+
+        <section class="gameTable">
+            <div class="player">
+                <h3 id="playerTitle">GIOCATORE</h3>
+                <div id="playerCards"></div>
+                <div id="playerScore"></div>
+            </div>
+
+            <div class="dealer">
+                <h3 id="dealerTitle">BANCO</h3>
+                <div id="dealerCards"></div>
+                <div id="dealerScore"></div>
+            </div>
+        </section>
+
+        <section class="moves">
+            <button id="hitCardBtn"><strong>CHIEDI CARTA</strong></button> <!-- Chiedi un'altra carta -->
+            <button id="stayBtn"><strong>RIMANI</strong></button> <!-- Stai fermo con le carte -->
+            <button id="newRoundBtn"><strong>NUOVA MANO</strong></button>
+        </section>
+
+    </main>
+    <script src ="blackjackGame.js"></script>
+</body>
+
+</html>
