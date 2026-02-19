@@ -1,5 +1,93 @@
-[...] 
-
-<div style
-
-[...]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blackjack | Compito</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container">
+        <div id="dealerContainer">
+            <div id="dealerTable">
+                <button id="startButton">START</button>
+                <div id="dealerCards">
+                    <div class="card">
+                        <div id="icon">♠️</div>
+                        <div id="value">10</div>
+                    </div>
+                    <div class="card">
+                        <div id="icon">♥️</div>
+                        <div id="value">4</div>
+                    </div>
+                    <div class="card">
+                        <div id="icon">♦️</div>
+                        <div id="value">6</div>
+                    </div>
+                    <div class="card">
+                        <div id="icon">♣️</div>
+                        <div id="value">2</div>
+                    </div>
+                    <div class="card-flipped">
+                        <div id="icon"></div>
+                        <div id="value"></div>
+                    </div>
+                </div>
+                <div id="dealerPoints">
+                    <div id="points">22</div>
+                </div>
+            </div>
+        </div>
+        <div id="choicesTable">
+            <h1>Prendi la tua decisione</h1>
+            <div id="choicesContainer">
+                <button id="hitButton">HIT</button>
+                <button id="stayButton">STAY</button>
+            </div>
+        </div>
+        <div id="playerContainer">
+            <div id="playerTable">
+                <div id="playerPoints">
+                    <div class="points">22</div>
+                </div>
+                <div id="playerCards">
+                    <div class="card">
+                        <div id="icon">♠️</div>
+                        <div id="value">10</div>
+                    </div>
+                    <div class="card">
+                        <div id="icon">♥️</div>
+                        <div id="value">4</div>
+                    </div>
+                    <div class="card">
+                        <div id="icon">♦️</div>
+                        <div id="value">6</div>
+                    </div>
+                    <div class="card">
+                        <div id="icon">♣️</div>
+                        <div id="value">2</div>
+                    </div>
+                    <div class="card-flipped">
+                        <div id="icon"></div>
+                        <div id="value"></div>
+                    </div>
+                </div>
+                <div id="balance">
+                    <div id="fiches">
+                        <div id="fiches_one">1</div>
+                        <div id="fiches_one">5</div>
+                        <div id="fiches_one">10</div>
+                        <div id="fiches_one">25</div>
+                        <div id="fiches_one">50</div>
+                        <div id="fiches_one">100</div>
+                        <button id="allInButton">ALL IN</button>
+                    </div>
+                    <div id="accountBalance">1000€</div>
+                    <input type="text" id="bet" placeholder="Inserisci la tua puntata">
+                    <button>CONFIRM</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
