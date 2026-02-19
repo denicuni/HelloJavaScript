@@ -29,6 +29,7 @@
             # se il giocatore ha ancora soldi può continuare a puntare
             # generation promuove il gambling
 */
+
 let isGameStarted = false;
 const input = document.querySelector(".soldi-puntati");
 const button = document.querySelector("#punta");
@@ -37,14 +38,34 @@ const playerDeck = document.querySelector(".mazzo-player");
 const opponentDeck = document.querySelector(".carte-mazziere");
 const hitButton = document.querySelector("#hit");
 const stayButton = document.querySelector("#stay");
+
 hitButton.disabled = true;
 playerDeck.listOfCards = [];
 opponentDeck.listOfCards = [];
+
+let functionsList = [];
+function addGameStartedListener(func){
+    functionsList.push(func);
+}
+
+function setGameStarted(booleano){
+    isGameStarted = booleano;
+    for(func in functionsList){
+        func();
+    }
+}
+
+addGameStartedListener(()=>start.disabled = isGameStarted);
+addGameStartedListener(()=>hitButton.disabled = !isGameStarted);
+addGameStartedListener(()=>stayButton.disabled = !isGameStarted);
+setGameStarted(false);
+
 /*Costanti già presenti in html*/
 let hiddenOpponentCardImage;
 let hiddenOpponentCard;
 let bet = 0;
 const playerMoney = 1000;
+
 /*Costanti per lavorare qui su css*/
 button.disabled = true;
 input.addEventListener("input", (evt) => {
@@ -52,11 +73,11 @@ input.addEventListener("input", (evt) => {
     const value = input.value;
     if (value >= 10 && value <= playerMoney) {
         bet = value;
-
     } else {
         button.disabled = true;
     }
 });/*Setta il bottone a disabilitato inizialmente, poi lo abilita solo quando viene inserito un valore all'interno di input*/
+
 let deckId;
 (async (url) => {
     let x = await fetch(url);
@@ -98,19 +119,16 @@ async function drawFromDeck(parentTag, isFlipped = false) {
 }
 
 start.addEventListener("click", async (_) => {
-    isGameStarted = true;
+    setGameStarted(true);
     playerDeck.listOfCards = [];
     opponentDeck.listOfCards = [];
     playerDeck.replaceChildren();
     opponentDeck.replaceChildren();
-    hitButton.disabled = !isGameStarted;
-    start.disabled = isGameStarted;
     await drawFromDeck(opponentDeck, true);
     await drawFromDeck(playerDeck);
     await drawFromDeck(opponentDeck);
     await drawFromDeck(playerDeck);
     console.log(opponentDeck.listOfCards, playerDeck.listOfCards);
-    stayButton.disabled = !isGameStarted;
 });
 
 function valueDeck(deck) {
@@ -137,9 +155,7 @@ hitButton.addEventListener("click", async () => {
     somma = valueDeck(playerDeck);
     if (somma>21){
         alert("hai perso");
-        isGameStarted = false;
-        hitButton.disabled = !isGameStarted;
-        start.disabled = isGameStarted;
+        setGameStarted(false);
     }else{
         hitButton.disabled = false;
     }
@@ -159,10 +175,5 @@ stayButton.addEventListener("click", async () => {
         hitButton.disabled = false;
         alert("SUCA");
     }
-    isGameStarted = false;
-    hitButton.disabled = !isGameStarted;
-    start.disabled = isGameStarted;
-    stayButton.disabled = true;
+    setGameStarted(false);
 });
-
-
