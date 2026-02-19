@@ -134,7 +134,7 @@ class card {
         this.value = setValue();
     }
     setNumber(){
-       let i = Math.floor(Math.random() * 13);
+       let i = Math.floor(Math.random() * 14);
        number = deck[i];
        return number;
     }
@@ -190,17 +190,19 @@ class Table {
 
 
 const button = document.querySelector("#myButton");
-const input = document.querySelector("#myInput + button");
+const input = document.querySelector("#myInput");
 let bet = 0;
 input.addEventListener("input", (evt) => {
     // const p = document.createElement("p");
     // p.textContent = input.value;
     // button.appendChild(p);
-    bet = parseFloat(input)
+    bet = parseFloat(input.value);
     // bet.value = input.value;
 });
-console.log(bet);
+
 
 button.addEventListener("click", (evt) => {
     button.disabled = true;
+    bet = input.value;
+    console.log(bet);
 });
