@@ -40,143 +40,124 @@ PROGETTAZIONE
     pulsanti "hit" e "stay"
     variabile campo da gioco che tiene i soldi in palio
     ??calsse campo da gioco che inizializza dealer e player, bet??
-
-
-
-
-class Blackjack {
-    constructor() {
-        this.bet = 0;
-        this.playerCards = [];
-        this.dealerCards = [];
-        this.playerMoney = 1000; // soldi iniziali
-    }
-
-    setBet(amount) {
-        if (amount > 0 && amount <= this.playerMoney) {
-            this.bet = amount;
-            console.log("Puntata:", this.bet);
-        } else {
-            alert("Puntata non valida!");
-        }
-    }
-
-    startGame() {
-        this.playerCards = [];
-        this.dealerCards = [];
-
-        this.playerMoney -= this.bet;
-
-        this.playerCards.push(this.drawCard());
-        this.playerCards.push(this.drawCard());
-
-        this.dealerCards.push(this.drawCard());
-        this.dealerCards.push(this.drawCard());
-
-        console.log("Carte giocatore:", this.playerCards);
-        console.log("Carte dealer:", this.dealerCards);
-    }
-
-    drawCard() {
-        return Math.floor(Math.random() * 11) + 1; // semplificato 1-11
-    }
-}
- Collegamento con input puntata
-HTML:
-
-<input type="number" id="betInput">
-<button id="startBtn">Start</button>
-JS:
-
-const game = new Blackjack();
-
-document.getElementById("startBtn").addEventListener("click", function() {
-    
-    const betValue = parseInt(document.getElementById("betInput").value);
-    
-    game.setBet(betValue);
-    game.startGame();
-});
- Logica contro il computer (dealer)
-Nel Blackjack vero:
-
-Il dealer pesca finché ha meno di 17
-
-Puoi fare così:
-
-dealerTurn() {
-    while (this.getScore(this.dealerCards) < 17) {
-        this.dealerCards.push(this.drawCard());
-    }
-}
-E una funzione per calcolare il punteggio:
-
-getScore(cards) {
-    return cards.reduce((sum, card) => sum + card, 0);
-}
-
-
-
 */
+const playerMoneyParagraph = document.querySelector("#playerMoney");
+const betButton = document.querySelector("#betButton");
+const hitButton = document.querySelector("#hitButton");
+const stayButton = document.querySelector("#stayButton");
+const input = document.querySelector("#myInput");
 const deck = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
+let totalPlayerPoints = 0;
 
-function setBet(input) {
-    if (input >= 10 && input <= playerMoney) {
-        bet = input;
-        return bet;
-    } else {
-        alert("coglione")
-    }
-}
-class card {
-    constructor(number, value) {
-        this.number = setNumber();
-        this.value = setValue();
-    }
-    setNumber(){
-       let i = Math.floor(Math.random() * 14);
-       number = deck[i];
-       return number;
-    }
+hitButton.disabled = true;
+stayButton.disabled = true;
 
+class Card {
+    constructor() {
+        this.number = this.setNumber();
+        this.value = this.setValue(this.number);
+    }
+    setNumber() {
+        let i = Math.floor(Math.random() * 13);
+        let number = deck[i];
+        return number;
+    }
     setValue(number) {
+        let cardValue = 0;
         if (number >= 2 && number <= 10) {
-            value = number;
-        }else if(number = "J"){
-            value = 10;
-        }else if(number = "Q"){
-            value = 10;
-        }else if(number = "K"){
-            value = 10;
-        }else if(number = "A"){
-            if(totalPoints >= 11){
-                value = 1;
-            }else{
-                value = 11;
+            cardValue = number;
+        } else if (number == "J") {
+            cardValue = 10;
+        } else if (number == "Q") {
+            cardValue = 10;
+        } else if (number == "K") {
+            cardValue = 10;
+        } else if (number == "A") {
+            if (totalPlayerPoints >= 11) {
+                cardValue = 1;
+            } else {
+                cardValue = 11;
             }
         }
-        return value;
+        return cardValue;
     }
 }
 
-class player {
-    constructor(playerCards, playerMoney, bet, points) {
-        this.playerCards = [];
-        this.playerMoney = 1000;
-        this.bet = setBet();
-        this.points = totalPoints();
+class Dealer {
+    constructor() {
+        this.dealerCards = [];
+        this.dealerPoints = 0;
     }
-    drawCard(card) {
-        playerCards.push(card);
+    drawCard() {
+        this.dealerCards.push(new Card());
+        this.dealerPoints = this.totalPoints();
     }
     totalPoints() {
-
-        return card;
+        let totalPoints = 0;
+        this.dealerCards.forEach(card => totalPoints += card.value);
+        return totalPoints;
     }
     resetCards() {
-        playerCards = [];
+        this.dealerCards = [];
     }
+    playHand() {
+        while(this.dealerPoints <= 16) {
+            this.drawCard();
+        }
+        console.log("Punteggio banco: " + this.dealerPoints);
+        if (this.dealerPoints > 21) {
+            playerWin();
+        } else {
+            checkWinner();
+        }
+    }
+}
 
+const dealer = new Dealer();
+
+class Player {
+    constructor() {
+        this.playerCards = [];
+        this.playerMoney = 1000;
+        this.bet = 0;
+        this.points = 0;
+    }
+    drawCard() {
+        let card = new Card();
+        console.log(card.number + ", " + card.value);
+        this.playerCards.push(card);
+        this.points = this.totalPoints();
+    }
+    totalPoints() {
+        let totalPoints = 0;
+        this.playerCards.forEach(card => totalPoints += card.value);
+        if(totalPoints <= 21) {
+            totalPlayerPoints = totalPoints;
+            return totalPoints;
+        }
+        alert("Hahaha, coglione, hai sballato");
+        resetBoard();
+    }
+    resetCards() {
+        this.playerCards = [];
+    }
+    setBet(inputValue) {
+        if (inputValue >= 10 && inputValue <= this.playerMoney) {
+            this.drawCard();
+            this.drawCard();
+            dealer.drawCard();
+            dealer.drawCard();
+            this.bet = inputValue;
+            this.playerMoney -= inputValue;
+            playerMoneyParagraph.textContent = "Quanto sei povero: " + this.playerMoney;
+            hitButton.disabled = false;
+            stayButton.disabled = false;
+            return true;
+        } else {
+            alert("coglione");
+            return false;
+        }
+    }
 }
 class Table {
     constructor(bet, dealerCards, playerCards, playerMoney) {
@@ -185,24 +166,58 @@ class Table {
         this.playerCards = playerCards;
         this.playerMoney = playerMoney;
     }
+}
+const player = new Player();
 
-};
+function checkWinner() {
+    if (player.points > dealer.dealerPoints) {
+        playerWin();
+    } else if (player.points == dealer.dealerPoints) {
+        player.playerMoney += (player.bet / 2);
+        playerMoneyParagraph.textContent = "Quanto sei povero: " + player.playerMoney;
+        alert("Mal comune...");
+        resetBoard();
+    } else {
+        playerLose();
+    }
+}
 
+function playerWin() {
+    player.playerMoney += (player.bet * 2);
+    playerMoneyParagraph.textContent = "Quanto sei povero: " + player.playerMoney;
+    alert("Ti è andata di culo...");
+    resetBoard();
+}
 
-const button = document.querySelector("#myButton");
-const input = document.querySelector("#myInput");
-let bet = 0;
-input.addEventListener("input", (evt) => {
-    // const p = document.createElement("p");
-    // p.textContent = input.value;
-    // button.appendChild(p);
-    bet = parseFloat(input.value);
-    // bet.value = input.value;
+function playerLose() {
+    alert("Suca, hai perso");
+    playerMoneyParagraph.textContent = "Quanto sei povero: " + player.playerMoney;
+    resetBoard();
+}
+
+function resetBoard() {
+    hitButton.disabled = true;
+    stayButton.disabled = true;
+    betButton.disabled = false;
+    input.value = "";
+    player.resetCards();
+    dealer.resetCards();
+    player.points = 0;
+    dealer.dealerPoints = 0;
+    totalPlayerPoints = 0;
+    console.clear();
+}
+
+betButton.addEventListener("click", (evt) => {
+    if (player.setBet(input.value)) {
+        betButton.disabled = true;
+    }
 });
 
+hitButton.addEventListener("click", (evt) => {
+    player.drawCard();
+});
 
-button.addEventListener("click", (evt) => {
-    button.disabled = true;
-    bet = input.value;
-    console.log(bet);
+stayButton.addEventListener("click", (evt) => {
+    dealer.playHand();
 });
