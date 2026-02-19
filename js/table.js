@@ -61,6 +61,34 @@ console.log(employees[0][x]);
 console.log(employees[0]["na" + "me"]);
 
 button.addEventListener("click", (evt) => {
+    
+    employees.forEach(employee => {
+        
+        const tr = document.createElement("tr");
+
+        const tdId = document.createElement("td");
+        tdId.textContent = employee.id;
+
+        const tdName = document.createElement("td");
+        tdName.textContent = employee.name;
+        
+        const tdLastName = document.createElement("td");
+        tdLastName.textContent = employee.lastname;
+
+        const tdRole = document.createElement("td");
+        tdRole.textContent = employee.role; 
+
+        tr.appendChild(tdId);
+        tr.appendChild(tdName);
+        tr.appendChild(tdLastName);
+        tr.appendChild(tdRole);
+
+        tb.appendChild(tr);
+    });
+
+    button.disabled = true;
+});
+/*button.addEventListener("click", (evt) => {
     const tr = document.createElement("tr");
 
     const tdId = document.createElement("td");
@@ -78,3 +106,4 @@ button.addEventListener("click", (evt) => {
 
     tb.appendChild(tr);
 });
+*/
