@@ -36,6 +36,7 @@ const start = document.querySelector("#start");
 const playerDeck = document.querySelector(".mazzo-player");
 const opponentDeck = document.querySelector(".carte-mazziere");
 const hitButton = document.querySelector("#hit");
+const stayButton = document.querySelector("#stay");
 hitButton.disabled = true;
 playerDeck.listOfCards = [];
 opponentDeck.listOfCards = [];
@@ -54,7 +55,6 @@ input.addEventListener("input", (evt) => {
     } else {
         button.disabled = true;
     }
-    ;
 });/*Setta il bottone a disabilitato inizialmente, poi lo abilita solo quando viene inserito un valore all'interno di input*/
 let deckId;
 (async (url) => {
@@ -68,11 +68,10 @@ let deckId;
 async function drawFromDeck(parentTag, isFlipped = false) {
     let y = await fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/`);
     let card = await y.json();
-    console.log(card);
     let z;
     if (!isFlipped) {
         z = document.createElement("img");
-        z.src = card.cards[0].images.png;
+        z.src = card.cards[0].image;
         z.classList.add("card");
     } else {
         z = document.createElement("img");
@@ -97,6 +96,8 @@ async function drawFromDeck(parentTag, isFlipped = false) {
 
 start.addEventListener("click", async (_) => {
     isGameStarted = true;
+    playerDeck.listOfCards = [];
+    opponentDeck.listOfCards = [];
     playerDeck.replaceChildren();
     opponentDeck.replaceChildren();
     hitButton.disabled = !isGameStarted;
@@ -104,23 +105,45 @@ start.addEventListener("click", async (_) => {
     await drawFromDeck(opponentDeck, true);
     await drawFromDeck(playerDeck);
     await drawFromDeck(opponentDeck);
+    await drawFromDeck(playerDeck);
     console.log(opponentDeck.listOfCards, playerDeck.listOfCards);
 });
 
 hitButton.addEventListener("click", async () => {
+    hitButton.disabled = true;
     await drawFromDeck(playerDeck);
+    playerDeck.listOfCards.sort((a,b)=>a-b);
     let somma = 0;
-    for(let value of playerDeck.listOfCards){
-        somma+=value;
+    for(let i = 0; i < playerDeck.listOfCards.length; i++){
+        if (i==playerDeck.listOfCards.length-1&&playerDeck.listOfCards[i]===1){
+            if (somma+11>21){
+                somma+=1;
+            }else{
+                somma+=11;
+            }
+        }else{
+            somma+=playerDeck.listOfCards[i];
+        }
     }
     if (somma>21){
         alert("hai perso");
         isGameStarted = false;
         hitButton.disabled = !isGameStarted;
         start.disabled = isGameStarted;
+    }else{
+        hitButton.disabled = false;
     }
-
     console.log(playerDeck.listOfCards);
+});
+
+stayButton.addEventListener("click", async (drawFromDeck) => {
+        hitButton.disabled = true;
+        let z = opponentDeck.listOfCards[0];
+        z = document.createElement("img");
+        z.src = "https://deckofcardsapi.com/static/img/back.png";
+        let card = await y.json();
+        z.classList.add("card");
+        await drawFromDeck(opponentDeck, true);
 })
 
 
