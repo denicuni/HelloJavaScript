@@ -50,7 +50,7 @@ function addGameStartedListener(func){
 
 function setGameStarted(booleano){
     isGameStarted = booleano;
-    for(func in functionsList){
+    for(func of functionsList){
         func();
     }
 }
@@ -58,25 +58,30 @@ function setGameStarted(booleano){
 addGameStartedListener(()=>start.disabled = isGameStarted);
 addGameStartedListener(()=>hitButton.disabled = !isGameStarted);
 addGameStartedListener(()=>stayButton.disabled = !isGameStarted);
+addGameStartedListener(()=>button.disabled= !isGameStarted);
 setGameStarted(false);
 
 /*Costanti già presenti in html*/
 let hiddenOpponentCardImage;
 let hiddenOpponentCard;
 let bet = 0;
-const playerMoney = 1000;
+let playerMoney = document.querySelector(".soldi-totali");
 
 /*Costanti per lavorare qui su css*/
 button.disabled = true;
 input.addEventListener("input", (evt) => {
     button.disabled = !input.value;
     const value = input.value;
-    if (value >= 10 && value <= playerMoney) {
+    if (value >= 10 && value <= Number(playerMoney.textContent)) {
         bet = value;
     } else {
         button.disabled = true;
     }
 });/*Setta il bottone a disabilitato inizialmente, poi lo abilita solo quando viene inserito un valore all'interno di input*/
+button.addEventListener("click", (e) => {
+    playerMoney.textContent = Number(playerMoney.textContent - bet);
+    input.value = 0;
+})
 
 let deckId;
 (async (url) => {
@@ -86,6 +91,7 @@ let deckId;
     console.log(data);
     await fetch(`https://deckofcardsapi.com/api/deck/${deckId}/shuffle/`);
 })("https://deckofcardsapi.com/api/deck/new");
+
 
 async function drawFromDeck(parentTag, isFlipped = false) {
     let y = await fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/`);
@@ -119,6 +125,7 @@ async function drawFromDeck(parentTag, isFlipped = false) {
 }
 
 start.addEventListener("click", async (_) => {
+    await fetch(`https://deckofcardsapi.com/api/deck/${deckId}/shuffle/`);
     setGameStarted(true);
     playerDeck.listOfCards = [];
     opponentDeck.listOfCards = [];
