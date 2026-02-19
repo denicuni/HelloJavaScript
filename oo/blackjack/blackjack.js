@@ -36,11 +36,13 @@ const start = document.querySelector("#start");
 const playerDeck = document.querySelector(".mazzo-player");
 const opponentDeck = document.querySelector(".carte-mazziere");
 const hitButton = document.querySelector("#hit");
+const stayButton = document.querySelector("#stay");
 hitButton.disabled = true;
 playerDeck.listOfCards = [];
 opponentDeck.listOfCards = [];
 /*Costanti già presenti in html*/
-
+let hiddenOpponentCardImage;
+let hiddenOpponentCard;
 let bet = 0;
 const playerMoney = 1000;
 /*Costanti per lavorare qui su css*/
@@ -54,7 +56,6 @@ input.addEventListener("input", (evt) => {
     } else {
         button.disabled = true;
     }
-    ;
 });/*Setta il bottone a disabilitato inizialmente, poi lo abilita solo quando viene inserito un valore all'interno di input*/
 let deckId;
 (async (url) => {
@@ -68,15 +69,16 @@ let deckId;
 async function drawFromDeck(parentTag, isFlipped = false) {
     let y = await fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/`);
     let card = await y.json();
-    console.log(card);
     let z;
     if (!isFlipped) {
         z = document.createElement("img");
-        z.src = card.cards[0].images.png;
+        z.src = card.cards[0].image;
         z.classList.add("card");
     } else {
         z = document.createElement("img");
         z.src = "https://deckofcardsapi.com/static/img/back.png";
+        hiddenOpponentCardImage = card.cards[0].image;
+        hiddenOpponentCard = z;
         z.classList.add("card");
         z.classList.add("flipped");
     }
@@ -97,6 +99,8 @@ async function drawFromDeck(parentTag, isFlipped = false) {
 
 start.addEventListener("click", async (_) => {
     isGameStarted = true;
+    playerDeck.listOfCards = [];
+    opponentDeck.listOfCards = [];
     playerDeck.replaceChildren();
     opponentDeck.replaceChildren();
     hitButton.disabled = !isGameStarted;
@@ -104,23 +108,61 @@ start.addEventListener("click", async (_) => {
     await drawFromDeck(opponentDeck, true);
     await drawFromDeck(playerDeck);
     await drawFromDeck(opponentDeck);
+    await drawFromDeck(playerDeck);
     console.log(opponentDeck.listOfCards, playerDeck.listOfCards);
+    stayButton.disabled = !isGameStarted;
 });
 
+function valueDeck(deck) {
+    deck.listOfCards.sort((a,b)=>b-a);
+    let somma = 0;
+    for (let i = 0; i < deck.listOfCards.length; i++) {
+        if (i === deck.listOfCards.length - 1 && deck.listOfCards[i] === 1) {
+            if (somma + 11 > 21) {
+                somma += 1;
+            } else {
+                somma += 11;
+            }
+        } else {
+            somma += deck.listOfCards[i];
+        }
+    }
+    return somma;
+}
+
 hitButton.addEventListener("click", async () => {
+    hitButton.disabled = true;
     await drawFromDeck(playerDeck);
     let somma = 0;
-    for(let value of playerDeck.listOfCards){
-        somma+=value;
-    }
+    somma = valueDeck(playerDeck);
     if (somma>21){
         alert("hai perso");
         isGameStarted = false;
         hitButton.disabled = !isGameStarted;
         start.disabled = isGameStarted;
+    }else{
+        hitButton.disabled = false;
     }
-
     console.log(playerDeck.listOfCards);
-})
+});
+
+stayButton.addEventListener("click", async () => {
+        hitButton.disabled = true;
+        hiddenOpponentCard.src=hiddenOpponentCardImage;
+        for(let somma = valueDeck(opponentDeck);somma<valueDeck(playerDeck);somma=valueDeck(opponentDeck)){
+            await drawFromDeck(opponentDeck);
+        }
+    if (valueDeck(opponentDeck)>21){
+        alert("Hai vinto player!!");
+
+    }else{
+        hitButton.disabled = false;
+        alert("SUCA");
+    }
+    isGameStarted = false;
+    hitButton.disabled = !isGameStarted;
+    start.disabled = isGameStarted;
+    stayButton.disabled = true;
+});
 
 
