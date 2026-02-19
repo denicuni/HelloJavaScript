@@ -9,8 +9,6 @@ body {
 }
 
 #dealerContainer {
-    border: 1px solid red;
-    padding-top: 1%;
     padding-bottom: 1%;
     width: 100%;
     display: flex;
@@ -24,6 +22,10 @@ body {
 #dealerCards {
     display: flex;
     justify-content: space-around;
+    border: 1px solid black;
+    padding: 1%;
+    background-color: #00381B;
+    border-radius: 12px;
 }
 
 #dealerPoints {
@@ -42,6 +44,7 @@ body {
     color: white;
     background-color: #203629;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 2%;
 }
 
 .card {
@@ -77,13 +80,56 @@ body {
 }
 
 #choicesTable {
-    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+}
+
+#choicesContainer {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 4%;
+}
+
+#choiceContent {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 38%;
+    border-radius: 12px;
+    background-color: #00381B;
+    color: white;
+}
+
+#choiceTitle {
+    display: flex;
+    justify-content: center;
+}
+
+#hitButton {
+    width: 30%;
+    border: 2px solid green;
+    color: green;
+    font-size: 16px;
+    border-radius: 12px;
+    background-color: #D2D2D0;
+}
+
+#stayButton {
+    width: 30%;
+    border: 2px solid #FD3E91;
+    color: #FD3E91;
+    font-size: 16px;
+    border-radius: 12px;
+    background-color: #D2D2D0;
 }
 
 #playerContainer {
     width: 100%;
+    margin-top: 4%;
+}
+
+#containerCards {
     display: flex;
     justify-content: center;
+    width: 100%;
 }
 
 #playerTable {
@@ -93,13 +139,16 @@ body {
 #playerCards {
     display: flex;
     justify-content: space-around;
+    border: 1px solid black;
+    padding: 1%;
+    background-color: #00381B;
+    border-radius: 12px;
 }
 
 #playerPoints {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-top: 2%;
 }
 
 .points {
@@ -111,5 +160,83 @@ body {
     color: white;
     background-color: #203629;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-bottom: 6%;
+    margin-bottom: 2%;
+}
+
+#fiches {
+    display: flex;
+    justify-content: space-around;
+    width: 60%;
+}
+
+.singleFiche {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2%;
+    padding: 1%;
+    border-radius: 50%;
+}
+
+.valueGrey {
+    background: white;
+    border: 4px solid grey;
+}
+
+.valuePink {
+    background: white;
+    border: 4px solid pink;
+}
+
+.valueRed {
+    background: white;
+    border: 4px solid red;
+}
+
+.valuePurple {
+    background: white;
+    border: 4px solid purple;
+}
+
+.valueGreen {
+    background: white;
+    border: 4px solid green;
+}
+
+.valueBlue {
+    background: white;
+    border: 4px solid blue;
+}
+
+#balance {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 1%;
+}
+
+#accountBalance {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 16%;
+    background-color: black;
+    color: yellow;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 26px;
+    border: none;
+    width: 10%;
+}
+
+#allInButton {
+    background-color: black;
+    color: yellow;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 26px;
+    border: none;
+    width: 10%;
+}
+
+#allInButton:hover {
+    border: 1px solid yellow;
 }

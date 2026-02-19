@@ -29,10 +29,10 @@
             # se il giocatore ha ancora soldi può continuare a puntare
             # generation promuove il gambling
 */
-const suits = [HEARTS, SPADES, DIAMONDS, CLUBS];
-const figures = [KING, QUEEN, JACK];
+const suits = ["HEARTS", "SPADES", "DIAMONDS", "CLUBS"];
+const figures = ["KING", "QUEEN", "JACK"];
 const bet = document.getElementById("bet");
-const confirm = document.querySelector("#bet + button"); 
+const confirm = document.getElementById("confirm"); 
 const start = document.getElementById("startButton");
 const hit = document.getElementById("hitButton");
 const stay = document.getElementById("stayButton");
@@ -40,19 +40,57 @@ const stay = document.getElementById("stayButton");
 class Game{
     constructor(){
         this.deck = new Deck();
-        this.player = new Player();
-        // to do: banco
+        this.gambler = new Player();
+        this.dealer = new Dealer();
     }
     startGambling(){
-        this.player.hand.addCard(this.deck.draw());
-        this.player.hand.addCard(this.deck.draw()); //pesca due carte
+        this.addCardToPlayer(this.gambler);
+        this.addCardToPlayer(this.gambler); //pesca due carte
+
+        this.addCardToPlayer(this.dealer);
+        this.addCardToPlayer(this.dealer); //due carte al dealer
     }
+    addCardToPlayer(player){
+        let card = this.deck.draw();
+        player.hand.addCard(card);
+        console.log(card);
+    }
+    startDealerTurn(){
+        console.log("Starts dealer turn");
+        this.dealer.takeTurn(this.gambler.hand.getPoints());
+    }
+    checkBust(points){
+        return points > 21;
+    }
+    endGame(winner, loser){
+        let value = bet.value;
+        winner.money += value;
+        loser.money = (loser.money - value); //da rivedere
+        //fare i check sulla disponibilità in denaro
+    }
+    //metodo per lo split in caso di pareggio
 }
 
 class Player{
     constructor(){
         this.money = 1000;
         this.hand = new Hand();
+    }
+}
+
+class Dealer extends Player{
+    constructor(){
+        super();
+    }
+    takeTurn(gamblerPoints){
+        let dealerPoints = this.hand.getPoints();
+        while(dealerPoints < gamblerPoints) {
+            game.addCardToPlayer(this);
+            dealerPoints = this.hand.getPoints();
+            if(game.checkBust(dealerPoints)) {
+                game.endGame(game.gambler, this);
+            }
+        }
     }
 }
 
@@ -65,21 +103,21 @@ class Card{
 
 class NumericCard extends Card{
     constructor(suit, number){
-        Card.call(this, suit, number);
+        super(suit, number);
         this.number = number;
     }
 }
 
 class Figure extends Card{
     constructor(suit, figure){
-        Card.call(this, suit, 10);
+        super(suit, 10);
         this.figure = figure;        
     }
 }
 
 class Ace extends Card{
     constructor(suit){
-        Card.call(this, suit, 1);
+        super(suit, 1);
     }
     setValue(value){
         this.value = value;
@@ -98,7 +136,7 @@ class Deck{
         let cardArray = [];
         for(let s of suits){
             cardArray.push(new Ace(s)); 
-            for(let i = 2; i < 10; i++){
+            for(let i = 2; i <= 10; i++){
                 cardArray.push(new NumericCard(s, i));
             }
             for(let f of figures){
@@ -109,7 +147,7 @@ class Deck{
     }
 
     shuffle() {
-        for(i = 0; i < 1000; i++){
+        for(let i = 0; i < 1000; i++){
             this.cards.sort(() => Math.random() - 0.5);
         }
     }
@@ -127,6 +165,25 @@ class Hand{
     addCard(dealtCard){
         this.cards.push(dealtCard);
     }
+
+    getPoints(){
+        let sum = 0;
+        for(let c of this.cards) {
+            sum += c.value;
+        }
+        return sum;
+    }
 }
 const game = new Game();
-confirm.onClick = game.startGambling;
+confirm.addEventListener("click", (evt) => {
+    game.startGambling();
+})
+hit.addEventListener("click", (evt) => {
+    game.addCardToPlayer(game.gambler);
+    if(game.checkBust(game.gambler.hand.getPoints())){
+        game.endGame(game.dealer, game.gambler);
+    }
+})
+stay.addEventListener("click", (evt) => {
+    game.startDealerTurn();
+})
