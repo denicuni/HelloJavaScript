@@ -73,6 +73,7 @@ function addGameListener(type, func) {
             break;
         case "money":
             moneyChangedFunctions.push(func);
+            break;
         default:
     }
 }
@@ -90,6 +91,7 @@ function setBetPlaced(booleano) {
         func();
     }
 }
+
 function setPlayerMoneyNumber(value) {
     playerMoneyNumber = value;
     for (let func of moneyChangedFunctions) {
@@ -119,16 +121,16 @@ startButton.disabled = true;
 puntaButton.disabled = true;
 
 let dataBeforeInput = "";
-input.addEventListener("beforeinput", evt => {
+input.addEventListener("beforeinput", _ => {
     dataBeforeInput = input.value;
 })
-input.addEventListener("input", (evt) => {
+input.addEventListener("input", evt => {
     if (isNaN(evt.data - 1)) {
         input.value = dataBeforeInput;
         return;
     }
     if (input.value > playerMoneyNumber) {
-       input.value = dataBeforeInput;
+        input.value = dataBeforeInput;
     }
     puntaButton.disabled = !input.value;
     const value = input.value;
@@ -139,7 +141,7 @@ input.addEventListener("input", (evt) => {
         puntaButton.disabled = true;
     }
 });
-puntaButton.addEventListener("click", (e) => {
+puntaButton.addEventListener("click", _ => {
     setPlayerMoneyNumber(playerMoneyNumber - bet);
     plate = bet;
     input.value = 0;
@@ -222,8 +224,7 @@ function valueDeck(deck) {
 hitButton.addEventListener("click", async () => {
     hitButton.disabled = true;
     await drawFromDeck(playerDeck);
-    let somma = 0;
-    somma = valueDeck(playerDeck);
+    let somma = valueDeck(playerDeck);
     if (somma > 21) {
         fakeAlert.textContent = "Hai perso";
         setGameStarted(false);
