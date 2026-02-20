@@ -31,52 +31,123 @@
 */
 
 let isGameStarted = false;
+let isBetPlaced = false;
+let plate;
+let bet = 0;
+let hiddenOpponentCardRealImage;
+let hiddenOpponentCard;
+let playerMoney = document.querySelector(".soldi-totali");
+let playerMoneyNumber = 1000;
 const input = document.querySelector(".soldi-puntati");
-const button = document.querySelector("#punta");
-const start = document.querySelector("#start");
+const puntaButton = document.querySelector("#punta");
+const startButton = document.querySelector("#start");
 const playerDeck = document.querySelector(".mazzo-player");
 const opponentDeck = document.querySelector(".carte-mazziere");
 const hitButton = document.querySelector("#hit");
 const stayButton = document.querySelector("#stay");
+let fakeAlert = document.querySelector(".alert-fake");
 
-hitButton.disabled = true;
 playerDeck.listOfCards = [];
 opponentDeck.listOfCards = [];
 
-let functionsList = [];
-function addGameStartedListener(func){
-    functionsList.push(func);
+/**
+ * @type {Function[]}
+ */
+let gameStartedFunctions = [];
+/**
+ * @type {Function[]}
+ */
+let betPlacedFunctions = [];
+/**
+ * @type {Function[]}
+ */
+let moneyChangedFunctions = [];
+
+function addGameListener(type, func) {
+    switch (type) {
+        case "start":
+            gameStartedFunctions.push(func);
+            break;
+        case "bet":
+            betPlacedFunctions.push(func);
+            break;
+        case "money":
+            moneyChangedFunctions.push(func);
+            break;
+        default:
+    }
 }
 
-function setGameStarted(booleano){
+function setGameStarted(booleano) {
     isGameStarted = booleano;
-    for(func in functionsList){
+    for (let func of gameStartedFunctions) {
         func();
     }
 }
 
-addGameStartedListener(()=>start.disabled = isGameStarted);
-addGameStartedListener(()=>hitButton.disabled = !isGameStarted);
-addGameStartedListener(()=>stayButton.disabled = !isGameStarted);
-setGameStarted(false);
-
-/*Costanti già presenti in html*/
-let hiddenOpponentCardImage;
-let hiddenOpponentCard;
-let bet = 0;
-const playerMoney = 1000;
-
-/*Costanti per lavorare qui su css*/
-button.disabled = true;
-input.addEventListener("input", (evt) => {
-    button.disabled = !input.value;
-    const value = input.value;
-    if (value >= 10 && value <= playerMoney) {
-        bet = value;
-    } else {
-        button.disabled = true;
+function setBetPlaced(booleano) {
+    isBetPlaced = booleano;
+    for (let func of betPlacedFunctions) {
+        func();
     }
-});/*Setta il bottone a disabilitato inizialmente, poi lo abilita solo quando viene inserito un valore all'interno di input*/
+}
+
+function setPlayerMoneyNumber(value) {
+    playerMoneyNumber = value;
+    for (let func of moneyChangedFunctions) {
+        func();
+    }
+}
+
+addGameListener("start", () => hitButton.disabled = !isGameStarted);
+addGameListener("start", () => stayButton.disabled = !isGameStarted);
+addGameListener("start", () => {
+    if (isGameStarted) startButton.disabled = true;
+});
+addGameListener("bet", () => {
+    if (!isGameStarted) startButton.disabled = false;
+});
+addGameListener("bet", () => {
+    if (!isGameStarted) fakeAlert.innerHTML = "";
+});
+addGameListener("money", () => {
+    playerMoney.textContent = "Saldo: " + playerMoneyNumber;
+})
+setGameStarted(false);
+setPlayerMoneyNumber(1000);
+startButton.disabled = true;
+
+
+puntaButton.disabled = true;
+
+let dataBeforeInput = "";
+input.addEventListener("beforeinput", _ => {
+    dataBeforeInput = input.value;
+})
+input.addEventListener("input", evt => {
+    if (isNaN(evt.data - 1)) {
+        input.value = dataBeforeInput;
+        return;
+    }
+    if (input.value > playerMoneyNumber) {
+        input.value = dataBeforeInput;
+    }
+    puntaButton.disabled = !input.value;
+    const value = input.value;
+    if (value >= 100) {
+        bet = value;
+        puntaButton.disabled = false;
+    } else {
+        puntaButton.disabled = true;
+    }
+});
+puntaButton.addEventListener("click", _ => {
+    setPlayerMoneyNumber(playerMoneyNumber - bet);
+    plate = bet;
+    input.value = 0;
+    puntaButton.disabled = true;
+    setBetPlaced(true);
+})
 
 let deckId;
 (async (url) => {
@@ -86,6 +157,7 @@ let deckId;
     console.log(data);
     await fetch(`https://deckofcardsapi.com/api/deck/${deckId}/shuffle/`);
 })("https://deckofcardsapi.com/api/deck/new");
+
 
 async function drawFromDeck(parentTag, isFlipped = false) {
     let y = await fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/`);
@@ -98,12 +170,12 @@ async function drawFromDeck(parentTag, isFlipped = false) {
     } else {
         z = document.createElement("img");
         z.src = "https://deckofcardsapi.com/static/img/back.png";
-        hiddenOpponentCardImage = card.cards[0].image;
+        hiddenOpponentCardRealImage = card.cards[0].image;
         hiddenOpponentCard = z;
         z.classList.add("card");
         z.classList.add("flipped");
     }
-    switch (card.cards[0].value){
+    switch (card.cards[0].value) {
         case "ACE":
             parentTag.listOfCards.push(1);
             break;
@@ -118,7 +190,8 @@ async function drawFromDeck(parentTag, isFlipped = false) {
     parentTag.appendChild(z);
 }
 
-start.addEventListener("click", async (_) => {
+startButton.addEventListener("click", async (_) => {
+    await fetch(`https://deckofcardsapi.com/api/deck/${deckId}/shuffle/`);
     setGameStarted(true);
     playerDeck.listOfCards = [];
     opponentDeck.listOfCards = [];
@@ -132,7 +205,7 @@ start.addEventListener("click", async (_) => {
 });
 
 function valueDeck(deck) {
-    deck.listOfCards.sort((a,b)=>b-a);
+    deck.listOfCards.sort((a, b) => b - a);
     let somma = 0;
     for (let i = 0; i < deck.listOfCards.length; i++) {
         if (i === deck.listOfCards.length - 1 && deck.listOfCards[i] === 1) {
@@ -151,29 +224,29 @@ function valueDeck(deck) {
 hitButton.addEventListener("click", async () => {
     hitButton.disabled = true;
     await drawFromDeck(playerDeck);
-    let somma = 0;
-    somma = valueDeck(playerDeck);
-    if (somma>21){
-        alert("hai perso");
+    let somma = valueDeck(playerDeck);
+    if (somma > 21) {
+        fakeAlert.textContent = "Hai perso";
         setGameStarted(false);
-    }else{
+    } else {
         hitButton.disabled = false;
     }
     console.log(playerDeck.listOfCards);
 });
 
 stayButton.addEventListener("click", async () => {
-        hitButton.disabled = true;
-        hiddenOpponentCard.src=hiddenOpponentCardImage;
-        for(let somma = valueDeck(opponentDeck);somma<valueDeck(playerDeck);somma=valueDeck(opponentDeck)){
-            await drawFromDeck(opponentDeck);
-        }
-    if (valueDeck(opponentDeck)>21){
-        alert("Hai vinto player!!");
-
-    }else{
+    hitButton.disabled = true;
+    hiddenOpponentCard.src = hiddenOpponentCardRealImage;
+    for (let somma = valueDeck(opponentDeck); somma < valueDeck(playerDeck); somma = valueDeck(opponentDeck)) {
+        await drawFromDeck(opponentDeck);
+    }
+    if (valueDeck(opponentDeck) > 21) {
+        fakeAlert.textContent = "Hai vinto player!";
+        setPlayerMoneyNumber(playerMoneyNumber + (plate * 2));
+    } else {
         hitButton.disabled = false;
-        alert("SUCA");
+        fakeAlert.textContent = "SUCA";
+        plate = 0;
     }
     setGameStarted(false);
 });
