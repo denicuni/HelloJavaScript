@@ -124,7 +124,7 @@ let dataBeforeInput = "";
 input.addEventListener("beforeinput", _ => {
     dataBeforeInput = input.value;
 })
-input.addEventListener("input", evt => {
+input.addEventListener("input", _ => {
     if (!input.value.match(/^([1-9][0-9]*)?$/)){
         input.value = dataBeforeInput;
     }
