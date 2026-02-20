@@ -75,30 +75,49 @@ body {
     font-size: 4rem;
 }
 
-
-.carte-mazziere {
-     width: 40%;
-    height: 100%;
+.cards-container {
+    width: 40%;
+    height: auto;
+    padding: 0 25px;
     display: flex;
-    justify-content: center;
+    gap: 8px;
+    justify-content: safe center;
     align-items: center;
     background-color: var(--bg-main);
-    border: 2px solid #231D36;
+    box-shadow: 0 0 0 2px #231D36;
     border-radius: 1rem;
+    border-bottom: 4px solid transparent;
+    border-top: 4px solid transparent;
+    overflow-x: auto;
+}
+
+.cards-container .card {
+    flex-shrink: 0;
+}
+
+.cards-container::-webkit-scrollbar{
+    height: 6px;
+}
+
+.cards-container::-webkit-scrollbar-track{
+    background: transparent;
+}
+
+.cards-container::-webkit-scrollbar-thumb{
+    background: var(--bg-surface);
+    border-radius: 100px;
+}
+
+.cards-container::-webkit-scrollbar-button{
+    width: 6px;
+}
+
+.carte-mazziere {
     margin: 1rem auto 0;
-    overflow: hidden;
 }
 
 .mazzo-player {
-    width: 40%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--bg-main);
-    border: 2px solid #231D36;
-    border-radius: 1rem;
     margin-bottom: 1rem;
-    overflow: hidden;
 }
 
 .card {
