@@ -19,7 +19,7 @@ let title = document.getElementById("title");
 console.log(title);
 console.log(window.title);
 
-button.addEventListener("click", (event) => {
+puntaButton.addEventListener("click", (event) => {
 	alert("cliccato")
 });
 
