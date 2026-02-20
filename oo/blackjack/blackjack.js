@@ -41,7 +41,7 @@ let playerMoneyNumber = 1000;
 const input = document.querySelector(".soldi-puntati");
 const puntaButton = document.querySelector("#punta");
 const startButton = document.querySelector("#start");
-const playerDeck = document.querySelector(".mazzo-player");
+const playerDeck = document.querySelector(".carte-player");
 const opponentDeck = document.querySelector(".carte-mazziere");
 const hitButton = document.querySelector("#hit");
 const stayButton = document.querySelector("#stay");
@@ -125,9 +125,8 @@ input.addEventListener("beforeinput", _ => {
     dataBeforeInput = input.value;
 })
 input.addEventListener("input", evt => {
-    if (isNaN(evt.data - 1)) {
+    if (!input.value.match(/^([1-9][0-9]*)?$/)){
         input.value = dataBeforeInput;
-        return;
     }
     if (input.value > playerMoneyNumber) {
         input.value = dataBeforeInput;
